@@ -65,7 +65,7 @@ public class RestoreableWindow {
 	 * @throws IllegalAccessException
 	 * @throws SQLException
 	 */
-	public void restore(Class<? extends RestoreableWindowDao> daoClass) {
+	public boolean restore(Class<? extends RestoreableWindowDao> daoClass) {
 		
 		// get the preference related to the window passed
 		// as input
@@ -74,7 +74,7 @@ public class RestoreableWindow {
 			windDao = daoClass.newInstance();
 		} catch (IllegalAccessException | InstantiationException e1) {
 			e1.printStackTrace();
-			return;
+			return false;
 		}
 		
 		RestoreableWindow pref = null;
@@ -83,10 +83,11 @@ public class RestoreableWindow {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		if(pref == null) {
+		
+		// either if we got an exception or if no pref was found
+		if (pref == null) {
 			System.out.println("No window preference found related to code " + this.code);
-			return;
+			return false;
 		}
 		
 		// if we are using a single screen
@@ -105,6 +106,8 @@ public class RestoreableWindow {
 		shell.setLocation(x, y);
 		shell.setSize(width, height);
 		shell.setMaximized(max);
+		
+		return true;
 	}
 	
 	/**
