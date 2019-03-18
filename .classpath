@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="SWT"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
