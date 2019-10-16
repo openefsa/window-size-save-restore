@@ -2,52 +2,61 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>window_size_save_and_restore</groupId>
-	<artifactId>window_size_save_and_restore</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>lib</directory>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</resource>
-		</resources>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<groupId>openefsa</groupId>
+	<artifactId>windows-size</artifactId>
+	<version>1.0.0</version>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.eclipsesource.minimal-json</groupId>
 			<artifactId>minimal-json</artifactId>
 			<version>[0.9.5,)</version>
 		</dependency>
-		<!-- uncomment for swt 32bit
 		<dependency>
-			<groupId>
-				org.eclipse.swt.org.eclipse.swt.win32.win32.x86.4.3.swt
-			</groupId>
-			<artifactId>org.eclipse.swt.win32.win32.x86</artifactId>
-			<version>[4.3,)</version>
+			<groupId>swt</groupId>
+			<artifactId>swt</artifactId>
+			<version>3.7.0.x32</version>
 		</dependency>
-		-->
-		<!-- uncomment for swt 64bit
-		<dependency>
-			<groupId> org.eclipse.swt.org.eclipse.swt.win32.win32.x86_64.4.3.swt 
-			</groupId>
-			<artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
-			<version>[4.3,)</version>
-		</dependency>
-		-->
 	</dependencies>
+
+	<build>
+
+		<sourceDirectory>src/main/java</sourceDirectory>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.0.0</version>
+				<executions>
+					<execution>
+						<id>aggregate-download-licenses</id>
+						<goals>
+							<goal>aggregate-download-licenses</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

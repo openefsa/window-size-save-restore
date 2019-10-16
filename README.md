@@ -4,7 +4,7 @@ In particular, these information are stored into an SQL database.
 
 # How to use the library
 * Identify a class which represents a GUI window of the application that you want to save and restore;
-* Create inside this class a RestoreableWindow object and initialize it with the SWT shell you want to save and with an unique code that is used to identify the window in the database.
+* Create inside this class a RestoreableWindow object and Initialise it with the SWT shell you want to save and with an unique code that is used to identify the window in the database.
 * Use the window.saveOnClosure method to say that the shell size and coordinates should be saved into the DB when the shell will be closed
 * Use the window.restore method to restore the size and coordinates of the shell which are stored in the database
 

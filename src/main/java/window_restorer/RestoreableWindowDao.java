@@ -17,10 +17,16 @@ import com.eclipsesource.json.JsonValue;
  * Dao to save and get windows size/coordinates
  * 
  * @author avonva
+ * @author shahaal
  *
  */
 public abstract class RestoreableWindowDao {
 
+	private static final int POINT_X = 0;
+	private static final int POINT_Y = 0;
+	private static final int LENGTH_W = 500;
+	private static final int LENGTH_H = 500;
+	
 	/**
 	 * Save the window size and coordinates and if it is maximized or not.
 	 * 
@@ -57,15 +63,16 @@ public abstract class RestoreableWindowDao {
 	private void save(JsonValue config) throws IOException {
 
 		// save the changes
-		try (FileWriter writer = new FileWriter(getConfigFile());) {
+		try (FileWriter writer = new FileWriter(getConfigFile())) {
 			config.writeTo(writer);
 			writer.close();
 		}
 	}
 
 	/**
-	 * the method return a json file
-	 * solved memory leak if the filereader has not been closed
+	 * the method return a json file solved memory leak if the filereader has not
+	 * been closed
+	 * 
 	 * @author shahaal
 	 * @return
 	 * @throws IOException
@@ -75,19 +82,37 @@ public abstract class RestoreableWindowDao {
 		File configFile = getConfigFile();
 
 		// if not found, create it from scratch
-		if (!configFile.exists()) {
+		if (!configFile.exists() || !isValidJson(new FileReader(configFile))) {
 			JsonObject file = Json.object();
 			save(file);
 		}
-		
+
 		// read it and return it
 		JsonValue config = null;
-		//solve memory leak
+
+		// solve memory leak
 		try (FileReader fr = new FileReader(configFile)) {
 			config = Json.parse(fr);
 		}
-		
+
 		return config;
+	}
+
+	/**
+	 * the method is used to check if the given json file is valid or not if not
+	 * valid the default file is created
+	 * 
+	 * @author shahaal
+	 * @return
+	 * @throws IOException
+	 */
+	private boolean isValidJson(FileReader fr) {
+		try {
+			Json.parse(fr);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/**
@@ -104,21 +129,24 @@ public abstract class RestoreableWindowDao {
 		JsonValue config = getJsonFile();
 		JsonValue window = config.asObject().get(code);
 
-		// if no pref found, return null
+		// if there are predefined values for the given code
 		if (window != null) {
 
 			JsonObject windowData = window.asObject();
 
-			int x = windowData.getInt("x", 0);
-			int y = windowData.getInt("y", 0);
-			int w = windowData.getInt("w", 200);
-			int h = windowData.getInt("h", 200);
+			int x = windowData.getInt("x", POINT_X);
+			int y = windowData.getInt("y", POINT_Y);
+			int w = windowData.getInt("w", LENGTH_W);
+			int h = windowData.getInt("h", LENGTH_H);
 			boolean max = windowData.getBoolean("max", false);
-			RestoreableWindow pref = new RestoreableWindow(shell, code, x, y, w, h, max);
-			return pref;
+			
+			return new RestoreableWindow(shell, code, x, y, w, h, max);
+			
+		} else {
+			System.out.println("No window preference found related to code " + code);	
+			return new RestoreableWindow(shell, code);
 		}
 
-		return null;
 	}
 
 	/**
