@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>openefsa</groupId>
-	<artifactId>windows-size</artifactId>
+	<artifactId>window-size-save-restore</artifactId>
 	<version>1.0.0</version>
 
 	<properties>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>swt</groupId>
 			<artifactId>swt</artifactId>
-			<version>3.7.0.x32</version>
+			<version>3.7.0.x64</version>
 		</dependency>
 	</dependencies>
 
@@ -53,6 +53,9 @@
 						<goals>
 							<goal>aggregate-download-licenses</goal>
 						</goals>
+						<configuration>
+							<licensesOutputDirectory>third-party-license</licensesOutputDirectory>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
