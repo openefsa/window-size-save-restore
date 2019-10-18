@@ -1,0 +1,4 @@
+
+Lists of 2 third-party dependencies.
+     (MIT License) minimal-json (com.eclipsesource.minimal-json:minimal-json:0.9.5 - https://github.com/ralfstx/minimal-json)
+     (Unknown license) swt (swt:swt:3.7.0.x64 - no url defined)

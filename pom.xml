@@ -2,9 +2,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>openefsa</groupId>
+	<parent>
+		<groupId>openefsa</groupId>
+		<artifactId>all-projects</artifactId>
+		<version>${global.version}</version>
+	</parent>
 	<artifactId>window-size-save-restore</artifactId>
-	<version>1.0.0</version>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -21,45 +24,21 @@
 		<dependency>
 			<groupId>swt</groupId>
 			<artifactId>swt</artifactId>
-			<version>3.7.0.x64</version>
 		</dependency>
 	</dependencies>
-
+	
 	<build>
-
 		<sourceDirectory>src/main/java</sourceDirectory>
-
+		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<includes>
-					<include>**/*</include>
-				</includes>
 			</resource>
 		</resources>
-
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>2.0.0</version>
-				<executions>
-					<execution>
-						<id>aggregate-download-licenses</id>
-						<goals>
-							<goal>aggregate-download-licenses</goal>
-						</goals>
-						<configuration>
-							<licensesOutputDirectory>third-party-license</licensesOutputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
 	</build>
-
 </project>
