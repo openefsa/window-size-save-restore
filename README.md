@@ -1,14 +1,43 @@
-# What the library provides
-The aim of the library is to restore the size and the coordinates of SWT Shells (GUI windows of the SWT library) which were set by the final user of the application, in order to improve the usability of the tool.
+<p align="center">
+	<img src="http://www.efsa.europa.eu/profiles/efsa/themes/responsive_efsa/logo.png" alt="European Food Safety Authority"/>
+</p>
+
+# Window size save and restore
+This Maven project module, written in Java, can be used for restoring the size and the coordinates of SWT Shells (GUI windows of the SWT library) which were set by the final user of the application, in order to improve the usability of the tool.
 In particular, these information are stored into an SQL database.
 
-# How to use the library
+## Dependencies
+All project dependencies are listed in the [pom.xml](pom.xml) file.
+
+## Import the project
+In order to import the project correctly into the integrated development environment (e.g. Eclipse), it is necessary to download the project together with all its dependencies.
+The project and all its dependencies are based on the concept of "project object model" and hence Apache Maven is used for the specific purpose.
+In order to correctly import the project into the IDE it is firstly required to create a parent POM Maven project (check the following [link](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html) for further information). 
+Once the parent project has been created add the project and all the dependencies as "modules" into the pom.xml file as shown below: 
+
+	<modules>
+
+		<!-- dependency modules -->
+		<module>module_1</module>
+		...
+		...
+		...
+		<module>module_n</module>
+		
+	</modules>
+	
+Next, close the IDE and extract all the zip packets inside the parent project.
+At this stage you can simply open the IDE and import back the parent project which will automatically import also the project and all its dependencies.
+
+_Please note that the "SWT.jar" and the "Jface.jar" libraries (if used) must be downloaded and installed manually in the Maven local repository since are custom versions used in the tool ((install 3rd party jars)[https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html])._
+
+## How to use the library
 * Identify a class which represents a GUI window of the application that you want to save and restore;
 * Create inside this class a RestoreableWindow object and Initialise it with the SWT shell you want to save and with an unique code that is used to identify the window in the database.
 * Use the window.saveOnClosure method to say that the shell size and coordinates should be saved into the DB when the shell will be closed
 * Use the window.restore method to restore the size and coordinates of the shell which are stored in the database
 
-# Java example
+## Example
 
 The following class is our GUI window for the Java application (using the SWT library):
 
