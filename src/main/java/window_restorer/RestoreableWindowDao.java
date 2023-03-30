@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.swt.widgets.Shell;
 
 import com.eclipsesource.json.Json;
@@ -21,6 +23,8 @@ import com.eclipsesource.json.JsonValue;
  *
  */
 public abstract class RestoreableWindowDao {
+	
+	private static final Logger LOGGER = LogManager.getLogger(RestoreableWindowDao.class);
 
 	private static final int POINT_X = 0;
 	private static final int POINT_Y = 0;
@@ -111,6 +115,8 @@ public abstract class RestoreableWindowDao {
 			Json.parse(fr);
 			return true;
 		} catch (Exception e) {
+			LOGGER.error("There was a problem parsing json", e);
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -143,7 +149,7 @@ public abstract class RestoreableWindowDao {
 			return new RestoreableWindow(shell, code, x, y, w, h, max);
 			
 		} else {
-			System.out.println("No window preference found related to code " + code);	
+			LOGGER.info("No window preference found related to code " + code);
 			return new RestoreableWindow(shell, code);
 		}
 
